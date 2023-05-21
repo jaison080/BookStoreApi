@@ -35,4 +35,7 @@ public class BooksService
 
     public async Task RemoveAsync(string id) =>
         await _booksCollection.DeleteOneAsync(x => x.Id == id);
+
+    public async Task<List<Book>> SearchAsync(string title) =>
+        await _booksCollection.Find(x => x.BookName.Contains(title)).ToListAsync();
 }

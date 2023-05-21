@@ -30,6 +30,19 @@ public class BooksController : ControllerBase
         return book;
     }
 
+    [HttpGet("search/{title}")]
+    public async Task<ActionResult<List<Book>>> Search(string title)
+    {
+        var books = await _booksService.SearchAsync(title);
+
+        if (books is null)
+        {
+            return NotFound();
+        }
+
+        return books;
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(Book newBook)
     {
